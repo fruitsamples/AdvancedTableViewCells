@@ -3,7 +3,7 @@ AdvancedTableViewCells
 
 Demonstrates several different ways to handle complex UITableViewCells.
 
-IndividualSubviewsBasedApplicaionCell is a cell designed in Interface Builder to display the contents of a cell using individual subviews (image views, labels, etc.)
+IndividualSubviewsBasedApplicationCell is a cell designed in Interface Builder to display the contents of a cell using individual subviews (image views, labels, etc.)
 
 CompositeSubviewBasedApplicationCell is a cell that uses a custom view to draw all of the components of the cell.
 
@@ -12,12 +12,12 @@ HybridSubviewBasedApplicationCell is a cell that uses a custom view to draw most
 
 Build Requirements
 ------------------
-iOS 4.0 SDK
+iOS 4.2 SDK
 
 
 Runtime Requirements
 --------------------
-iPhone OS 3.2 or later
+iOS 3.2 SDK or later
 
 
 Using the Sample
@@ -54,10 +54,11 @@ Changes from Previous Versions
 1.2 - Added reuse identifier to cell loaded from nib, added localized folder for nibs.
 1.3 - Upgraded project to build with the iOS 4.0 SDK.
 1.4 - Added CFBundleIconFiles in Info.plist.
+1.5 - Upgraded to support iOS 4.2 SDK, now using UINib class to help load and instantiate xib-based table view cells.
 
 
 Feedback and Bug Reports
 Please send all feedback about this sample by connecting to the Contact ADC page.
 Please submit any bug reports about this sample to the Bug Reporting page.
 
-Copyright (C) 2009-2010, Apple Inc.
+Copyright (C) 2009-2011, Apple Inc.

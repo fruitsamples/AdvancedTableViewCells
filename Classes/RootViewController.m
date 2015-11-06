@@ -1,7 +1,7 @@
 /*
      File: RootViewController.m 
  Abstract: The main UITableViewController. 
-  Version: 1.0 
+  Version: 1.5 
   
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple 
  Inc. ("Apple") in consideration of your agreement to the following 
@@ -41,7 +41,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE. 
   
- Copyright (C) 2010 Apple Inc. All Rights Reserved. 
+ Copyright (C) 2011 Apple Inc. All Rights Reserved. 
   
  */
 
@@ -51,9 +51,9 @@
 
 
 // Define one of the following macros to 1 to control which type of cell will be used.
-#define USE_INDIVIDUAL_SUBVIEWS_CELL    1
-#define USE_COMPOSITE_SUBVIEW_CELL      0
-#define USE_HYBRID_CELL                 0
+#define USE_INDIVIDUAL_SUBVIEWS_CELL    1	// use a xib file defining the cell
+#define USE_COMPOSITE_SUBVIEW_CELL      0	// use a single view to draw all the content
+#define USE_HYBRID_CELL                 0	// use a single view to draw most of the content + separate label to render the rest of the content
 
 
 /*
@@ -66,15 +66,18 @@
 
 @implementation RootViewController
 
-@synthesize tmpCell, data;
+@synthesize tmpCell, data, cellNib;
 
 
+#pragma mark -
 #pragma mark View controller methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+	
+	self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	
 	// Configure the table view.
     self.tableView.rowHeight = 73.0;
     self.tableView.backgroundColor = DARK_BACKGROUND;
@@ -83,23 +86,37 @@
 	// Load the data.
     NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"];
     self.data = [NSArray arrayWithContentsOfFile:dataPath];
+	
+	// create our UINib instance which will later help us load and instanciate the
+	// UITableViewCells's UI via a xib file.
+	//
+	// Note:
+	// The UINib classe provides better performance in situations where you want to create multiple
+	// copies of a nib file’s contents. The normal nib-loading process involves reading the nib file
+	// from disk and then instantiating the objects it contains. However, with the UINib class, the
+	// nib file is read from disk once and the contents are stored in memory.
+	// Because they are in memory, creating successive sets of objects takes less time because it
+	// does not require accessing the disk.
+	//
+	self.cellNib = [UINib nibWithNibName:@"IndividualSubviewsBasedApplicationCell" bundle:nil];
 }
 
+- (void)viewDidUnload
+{
+	[super viewDidLoad];
+	
+	self.data = nil;
+	self.tmpCell = nil;
+	self.cellNib = nil;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
-    switch (toInterfaceOrientation)
-    {
-        case UIInterfaceOrientationPortrait:
-        case UIInterfaceOrientationLandscapeLeft:
-        case UIInterfaceOrientationLandscapeRight:
-            return YES;
-        default:
-            return NO;
-    }
+    return YES;
 }
 
 
+#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -121,9 +138,9 @@
     if (cell == nil)
     {
 #if USE_INDIVIDUAL_SUBVIEWS_CELL
-        [[NSBundle mainBundle] loadNibNamed:@"IndividualSubviewsBasedApplicationCell" owner:self options:nil];
-        cell = tmpCell;
-        self.tmpCell = nil;
+        [self.cellNib instantiateWithOwner:self options:nil];
+		cell = tmpCell;
+		self.tmpCell = nil;
 		
 #elif USE_COMPOSITE_SUBVIEW_CELL
         cell = [[[CompositeSubviewBasedApplicationCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -137,9 +154,8 @@
     
 	// Display dark and light background in alternate rows -- see tableView:willDisplayCell:forRowAtIndexPath:.
     cell.useDarkBackground = (indexPath.row % 2 == 0);
-
-	// Configure the data for the cell.
 	
+	// Configure the data for the cell.
     NSDictionary *dataItem = [data objectAtIndex:indexPath.row];
     cell.icon = [UIImage imageNamed:[dataItem objectForKey:@"Icon"]];
     cell.publisher = [dataItem objectForKey:@"Publisher"];
@@ -147,9 +163,7 @@
     cell.numRatings = [[dataItem objectForKey:@"NumRatings"] intValue];
     cell.rating = [[dataItem objectForKey:@"Rating"] floatValue];
     cell.price = [dataItem objectForKey:@"Price"];
-
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
+	
     return cell;
 }
 
@@ -164,13 +178,16 @@
 }
 
 
+#pragma mark -
 #pragma mark Memory management
 
 - (void)dealloc
 {
     [data release];
+	[tmpCell release];
+	[cellNib release];
+	
     [super dealloc];
 }
 
 @end
-

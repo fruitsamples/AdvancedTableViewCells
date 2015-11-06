@@ -1,7 +1,7 @@
 /*
      File: RootViewController.h
  Abstract: The main UITableViewController.
-  Version: 1.0
+  Version: 1.5
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
  Inc. ("Apple") in consideration of your agreement to the following
@@ -41,7 +41,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ Copyright (C) 2011 Apple Inc. All Rights Reserved.
  
  */
 
@@ -52,9 +52,14 @@
 {
 	ApplicationCell *tmpCell;
     NSArray *data;
+	
+	// referring to our xib-based UITableViewCell ('IndividualSubviewsBasedApplicationCell')
+	UINib *cellNib;
 }
 
-@property (nonatomic, assign) IBOutlet ApplicationCell *tmpCell;
+@property (nonatomic, retain) IBOutlet ApplicationCell *tmpCell;
 @property (nonatomic, retain) NSArray *data;
+
+@property (nonatomic, retain) UINib *cellNib;
 
 @end
