@@ -12,12 +12,12 @@ HybridSubviewBasedApplicationCell is a cell that uses a custom view to draw most
 
 Build Requirements
 ------------------
-Mac OS X 10.5.7 or later, Xcode 3.1.3 or later, iPhone OS 3.0 or later
+iOS 4.0 SDK
 
 
 Runtime Requirements
 --------------------
-Mac OS X 10.5.7 or later, iPhone OS 3.0 or later
+iPhone OS 3.2 or later
 
 
 Using the Sample
@@ -47,3 +47,17 @@ HybridSubviewBasedApplicationCell.{h,m}
 
 RatingView.{h,m}
 - The view used by the IndividualSubviewBasedApplicationCell to display the rating.
+
+
+Changes from Previous Versions
+1.0 - First release
+1.2 - Added reuse identifier to cell loaded from nib, added localized folder for nibs.
+1.3 - Upgraded project to build with the iOS 4.0 SDK.
+1.4 - Added CFBundleIconFiles in Info.plist.
+
+
+Feedback and Bug Reports
+Please send all feedback about this sample by connecting to the Contact ADC page.
+Please submit any bug reports about this sample to the Bug Reporting page.
+
+Copyright (C) 2009-2010, Apple Inc.

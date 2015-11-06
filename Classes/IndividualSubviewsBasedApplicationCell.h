@@ -41,7 +41,7 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2009 Apple Inc. All Rights Reserved.
+ Copyright (C) 2010 Apple Inc. All Rights Reserved.
  
  */
 
@@ -49,7 +49,8 @@
 #import "ApplicationCell.h"
 #import "RatingView.h"
 
-@interface IndividualSubviewsBasedApplicationCell : ApplicationCell {
+@interface IndividualSubviewsBasedApplicationCell : ApplicationCell
+{
     IBOutlet UIImageView *iconView;
     IBOutlet UILabel *publisherLabel;
     IBOutlet UILabel *nameLabel;

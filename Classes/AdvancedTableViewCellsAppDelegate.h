@@ -41,12 +41,12 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2009 Apple Inc. All Rights Reserved.
+ Copyright (C) 2010 Apple Inc. All Rights Reserved.
  
  */
 
-@interface AdvancedTableViewCellsAppDelegate : NSObject <UIApplicationDelegate> {
-    
+@interface AdvancedTableViewCellsAppDelegate : NSObject <UIApplicationDelegate>
+{
     UIWindow *window;
     UINavigationController *navigationController;
 }

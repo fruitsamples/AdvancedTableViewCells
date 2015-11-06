@@ -41,14 +41,14 @@
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  
- Copyright (C) 2009 Apple Inc. All Rights Reserved.
+ Copyright (C) 2010 Apple Inc. All Rights Reserved.
  
  */
 
 #import <UIKit/UIKit.h>
 
-
-@interface RatingView : UIView {
+@interface RatingView : UIView
+{
     float rating;
     UIImageView *backgroundImageView;
     UIImageView *foregroundImageView;
